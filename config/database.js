@@ -1,9 +1,10 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
     process.env.DB_NAME || 'invoice_db',
     process.env.DB_USER || 'postgres',
-    process.env.DB_PASSWORD || 'your_password_here',
+    process.env.DB_PASSWORD || 'jankcarbon',
     {
         host: process.env.DB_HOST || 'localhost',
         port: process.env.DB_PORT || 5432,
