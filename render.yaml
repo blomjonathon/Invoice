@@ -27,9 +27,11 @@ services:
         fromDatabase:
           name: invoice-db
           property: password
+    autoDeploy: true
 
 databases:
   - name: invoice-db
     databaseName: invoice_db
     user: postgres
-    plan: free 
+    plan: free
+    ipAllowList: [] 
