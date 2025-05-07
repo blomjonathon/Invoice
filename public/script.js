@@ -245,7 +245,7 @@ async function loadInvoices() {
     invoiceList.style.display = 'block';
 
     try {
-        const response = await fetch('http://localhost:3000/api/invoices');
+        const response = await fetch('/api/invoices');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -317,7 +317,7 @@ async function toggleInvoiceDetails(id) {
     detailDiv.style.display = 'block';
 
     try {
-        const response = await fetch('http://localhost:3000/api/invoices');
+        const response = await fetch('/api/invoices');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -364,7 +364,7 @@ async function toggleInvoiceDetails(id) {
 
 async function deleteInvoice() {
     if (currentInvoiceId) {
-        const response = await fetch(`http://localhost:3000/api/invoices/${currentInvoiceId}`, {
+        const response = await fetch(`/api/invoices/${currentInvoiceId}`, {
             method: 'DELETE'
         });
 
