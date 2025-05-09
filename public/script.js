@@ -77,11 +77,15 @@ function getSelectedCalibrations() {
 
 function updateInvoiceDisplay() {
     const selectedCalibrations = getSelectedCalibrations();
+    const invoiceBox = document.getElementById('invoiceBox');
+    
     if (selectedCalibrations.length === 0) {
-        document.getElementById('invoiceBox').style.display = 'none';
+        invoiceBox.style.display = 'none';
         return;
     }
-    document.getElementById('invoiceBox').style.display = 'block';
+    
+    // Show the invoice preview
+    invoiceBox.style.display = 'block';
 
     const year = document.getElementById('year').value;
     const make = document.getElementById('make').value;
@@ -388,3 +392,17 @@ function hideInvoices() {
 async function refreshInvoices() {
     await loadInvoices();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide invoice list by default
+    const invoiceList = document.getElementById('invoiceList');
+    invoiceList.style.display = 'none';
+    
+    // Set today's date as default
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('invoiceDateInput').value = today;
+    
+    // Initialize other elements
+    document.getElementById('invoiceNumber').innerText = "INV-" + invoiceCounter.toString().padStart(6, '0');
+    document.getElementById('dueDate').innerText = new Date().toLocaleDateString();
+});

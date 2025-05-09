@@ -79,6 +79,7 @@ h1 {
     font-size: 1em;
     transition: background-color 0.3s;
     margin: 10px 5px;
+    display: inline-block;
 }
 
 .btn:hover {
@@ -86,8 +87,8 @@ h1 {
 }
 
 #invoiceBox {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: none;
+    margin: 0;
     padding: 30px;
     background: white;
     border-radius: 8px;
@@ -315,14 +316,14 @@ th, td {
 
 .form-container {
     display: flex;
+    flex-direction: column;
     gap: 20px;
-    justify-content: center;
     margin-bottom: 15px;
 }
 
 .form-container .section {
     flex: 1;
-    max-width: 400px;
+    max-width: none;
     margin: 0;
 }
 
@@ -330,6 +331,8 @@ th, td {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
+    width: min-content;
 }
 
 .company-info, .bill-to {
@@ -338,7 +341,7 @@ th, td {
 }
 
 .invoice-logo {
-    width: 300px;
+    width: 200px;
     height: auto;
     object-fit: contain;
     margin-bottom: 10px;
@@ -377,7 +380,7 @@ th, td {
 }
 
 .pdf-export .invoice-logo {
-    /* display: block !important;
+    display: block !important;
     margin: 0 auto 10px auto !important;
     position: static !important;
     width: 160px !important;
@@ -385,7 +388,7 @@ th, td {
     box-shadow: none !important;
     background: none !important;
     border-radius: 0 !important;
-    padding: 0 !important; */
+    padding-right: 150px !important;
 }
 
 .pdf-export .company-info, .pdf-export .bill-to {
@@ -395,7 +398,7 @@ th, td {
 
 .pdf-export table {
     width: 100% !important;
-    margin: 10px 0 !important;
+    margin: 10px 10px !important;
     font-size: 11pt !important;
 }
 
@@ -435,36 +438,106 @@ th, td {
     flex: 1;
     padding: 20px 40px;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.form-section {
+    flex: 0 0 400px;
+}
+
+.invoice-preview-section {
+    flex: 1;
+    min-width: 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
 @media print {
-  body {
-    display: block !important;
+  @page {
+    margin: 0;
+    size: auto;
   }
-  .sidebar { display: none !important; }
-  .main-content { padding: 0 !important; }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body * { visibility: hidden !important; }
+  #invoiceBox, #invoiceBox * { visibility: visible !important; }
+  #invoiceBox {
+    position: absolute !important;
+    left: 0; top: 0; width: 100% !important; 
+    margin: 0 !important; 
+    padding: 20px !important;
+    box-shadow: none !important; 
+    background: #fff !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+  .btn, #pdfLoading, #invoiceList, #fullInvoiceDetails, #pdfContainer { display: none !important; }
   .invoice-header-section {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
-    gap: 40px !important;
+    gap: 20px !important;
+    margin-bottom: 10px !important;
   }
   .company-info, .bill-to {
     flex: 1 1 0 !important;
-    min-width: 220px !important;
+    min-width: 200px !important;
+    font-size: 11pt !important;
   }
   .invoice-logo {
-    /* float: right !important;
-    margin: 0 0 10px 20px !important;
+    width: 150px !important;
+    margin: 0 !important;
     display: block !important;
     position: static !important;
-    align-self: flex-end !important; */
+  }
+  table {
+    font-size: 10pt !important;
+    margin: 10px 0 !important;
+  }
+  th, td {
+    padding: 4px 6px !important;
+    font-size: 10pt !important;
   }
   .totals {
-    text-align: left !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
+    text-align: right !important;
+    margin: 10px 0 !important;
+    padding: 0 !important;
+    font-size: 11pt !important;
+  }
+  h1 {
+    font-size: 16pt !important;
+    margin: 0 0 10px 0 !important;
+  }
+  h3 {
+    font-size: 12pt !important;
+    margin: 5px 0 !important;
+  }
+  p {
+    margin: 2px 0 !important;
+    font-size: 11pt !important;
   }
 }
 

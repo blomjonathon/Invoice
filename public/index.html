@@ -44,90 +44,97 @@
     <div id="invoiceList" class="sidebar"></div>
     <div class="main-content">
         <h1>Create Invoice</h1>
-
-        <div class="form-container">
-            <div class="section">
-                <h3>Vehicle Info</h3>
-                <label><input type="text" id="year" placeholder="Year"></label>
-                <label><select id="make">
-                    <option value="">Select Make</option>
-                    <option value="Acura/Honda">Acura/Honda</option>
-                    <option value="BMW">BMW</option>
-                    <option value="Chrysler">Chrysler</option>
-                    <option value="Ford">Ford</option>
-                    <option value="GM">GM</option>
-                    <option value="Hyundai">Hyundai</option>
-                    <option value="Kia">Kia</option>
-                    <option value="Lexus/Toyota">Lexus/Toyota</option>
-                    <option value="Mazda">Mazda</option>
-                    <option value="Nissan/Infiniti">Nissan/Infiniti</option>
-                    <option value="Subaru">Subaru</option>
-                    <option value="Volkswagen">Volkswagen</option>
-                </select></label>
-                <label><input type="text" id="model" placeholder="Model"></label>
-                <label><input type="text" id="vin" placeholder="VIN"></label>
-                <label><input type="text" id="ro" placeholder="RO#"></label>
-            </div>
-
-            <div class="section">
-                <h3>Select Calibration Services:</h3>
-                <div id="calibrationOptions"></div>
-            </div>
+        <div class="button-container">
+            <button class="btn" onclick="generateInvoice()">Save Invoice</button>
+            <div id="pdfLoading" style="display:none; color:#3498db; font-weight:bold; margin: 10px 0;">Generating PDF...</div>
+            <button class="btn" onclick="window.print()">Print/Export Invoice</button>
+            <button class="btn" onclick="loadInvoices()">Display Saved Invoices</button>
+            <button class="btn" onclick="hideInvoices()">Hide Invoices</button>
+            <button class="btn" onclick="refreshInvoices()">Refresh Invoices</button>
         </div>
 
-        <button class="btn" onclick="generateInvoice()">Save Invoice</button>
-        <div id="pdfLoading" style="display:none; color:#3498db; font-weight:bold; margin: 10px 0;">Generating PDF...</div>
-        <button class="btn" onclick="window.print()">Print/Export Invoice</button>
-        <button class="btn" onclick="loadInvoices()">Display Saved Invoices</button>
-        <button class="btn" onclick="hideInvoices()">Hide Invoices</button>
-        <button class="btn" onclick="refreshInvoices()">Refresh Invoices</button>
+        <div class="content-wrapper">
+            <div class="form-section">
+                <div class="form-container">
+                    <div class="section">
+                        <h3>Vehicle Info</h3>
+                        <label><input type="text" id="year" placeholder="Year"></label>
+                        <label><select id="make">
+                            <option value="">Select Make</option>
+                            <option value="Acura/Honda">Acura/Honda</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Chrysler">Chrysler</option>
+                            <option value="Ford">Ford</option>
+                            <option value="GM">GM</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Lexus/Toyota">Lexus/Toyota</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="Nissan/Infiniti">Nissan/Infiniti</option>
+                            <option value="Subaru">Subaru</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                        </select></label>
+                        <label><input type="text" id="model" placeholder="Model"></label>
+                        <label><input type="text" id="vin" placeholder="VIN"></label>
+                        <label><input type="text" id="ro" placeholder="RO#"></label>
+                    </div>
 
-        <div id="invoiceBox">
-            <h1>Williams Towing & Repair</h1>
-
-            <div class="invoice-header-section">
-                <div class="company-info">
-                    <p><strong>New Central Auto Body</strong></p>
-                    <p>4737 Nicollet Ave, Minneapolis, MN 55419, USA</p>
-                    <p>Email: <input type="email" id="invoiceEmail" value="newcentralautobody@example.com" style="border: none; background: transparent;"></p>
-                    <p>Invoice #: <span id="invoiceNumber"></span></p>
-                    <p>Invoice Date: <input type="date" id="invoiceDateInput" style="border: none; background: transparent;"></p>
-                    <p>Terms: Due on Receipt</p>
-                    <p>Due Date: <span id="dueDate"></span></p>
+                    <div class="section">
+                        <h3>Select Calibration Services:</h3>
+                        <div id="calibrationOptions"></div>
+                    </div>
                 </div>
-                <div class="bill-to">
-                    <h3>Bill To:</h3>
-                    <p>New Central Auto Body</p>
-                    <p>4737 Nicollet Ave, Minneapolis, MN 55419</p>
-                    <p>USA</p>
-                </div>
-                <img src="williams-logo.png" alt="Williams Towing & Repair" class="invoice-logo">
             </div>
 
-            <div>
-                <h3>Vehicle Information:</h3>
-                <p>Year/Make/Model: <span id="vehicle"></span></p>
-                <p>VIN: <span id="vehicleVin"></span></p>
-                <p>RO#: <span id="vehicleRo"></span></p>
-            </div>
+            <div class="invoice-preview-section">
+                <div id="invoiceBox">
+                    <h1>Williams Towing & Repair</h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Item & Description</th>
-                        <th>Qty</th>
-                        <th>Rate</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody id="itemsTable"></tbody>
-            </table>
+                    <div class="invoice-header-section">
+                        <div class="company-info">
+                            <p><strong>New Central Auto Body</strong></p>
+                            <p>4737 Nicollet Ave, Minneapolis, MN 55419, USA</p>
+                            <p>Email: <input type="email" id="invoiceEmail" value="newcentralautobody@example.com" style="border: none; background: transparent;"></p>
+                            <p>Invoice #: <span id="invoiceNumber"></span></p>
+                            <p>Invoice Date: <input type="date" id="invoiceDateInput" style="border: none; background: transparent;"></p>
+                            <p>Terms: Due on Receipt</p>
+                            <p>Due Date: <span id="dueDate"></span></p>
+                        </div>
+                        <div class="bill-to">
+                            <h3>Bill To:</h3>
+                            <p>New Central Auto Body</p>
+                            <p>4737 Nicollet Ave, Minneapolis, MN 55419</p>
+                            <p>USA</p>
+                        </div>
+                        <img src="williams-logo.png" alt="Williams Towing & Repair" class="invoice-logo">
+                    </div>
 
-            <div class="totals">
-                <p>Sub Total: $<span id="subTotal">0.00</span></p>
-                <p><strong>Total: $<span id="total">0.00</span></strong></p>
-                <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
+                    <div>
+                        <h3>Vehicle Information:</h3>
+                        <p>Year/Make/Model: <span id="vehicle"></span></p>
+                        <p>VIN: <span id="vehicleVin"></span></p>
+                        <p>RO#: <span id="vehicleRo"></span></p>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Item & Description</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTable"></tbody>
+                    </table>
+
+                    <div class="totals">
+                        <p>Sub Total: $<span id="subTotal">0.00</span></p>
+                        <p><strong>Total: $<span id="total">0.00</span></strong></p>
+                        <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
+                    </div>
+                </div>
             </div>
         </div>
 
