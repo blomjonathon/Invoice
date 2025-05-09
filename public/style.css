@@ -330,7 +330,6 @@ th, td {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 40px;
 }
 
 .company-info, .bill-to {
@@ -339,11 +338,10 @@ th, td {
 }
 
 .invoice-logo {
-    width: 160px;
+    width: 300px;
     height: auto;
     object-fit: contain;
     margin-bottom: 10px;
-    align-self: flex-end;
     display: block;
 }
 
@@ -379,7 +377,7 @@ th, td {
 }
 
 .pdf-export .invoice-logo {
-    display: block !important;
+    /* display: block !important;
     margin: 0 auto 10px auto !important;
     position: static !important;
     width: 160px !important;
@@ -387,7 +385,7 @@ th, td {
     box-shadow: none !important;
     background: none !important;
     border-radius: 0 !important;
-    padding: 0 !important;
+    padding: 0 !important; */
 }
 
 .pdf-export .company-info, .pdf-export .bill-to {
@@ -456,11 +454,11 @@ th, td {
     min-width: 220px !important;
   }
   .invoice-logo {
-    float: right !important;
+    /* float: right !important;
     margin: 0 0 10px 20px !important;
     display: block !important;
     position: static !important;
-    align-self: flex-end !important;
+    align-self: flex-end !important; */
   }
   .totals {
     text-align: left !important;
